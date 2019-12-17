@@ -59,13 +59,16 @@ export default class WebpackShellPlugin {
     return options;
   }
 
-  mergeOptions(options, defaults) {
-    for (const key in defaults) {
-      if (options.hasOwnProperty(key)) {
-        defaults[key] = options[key];
+  mergeOptions(provided, defaults) {
+    const options = {};
+    for (var key in defaults) {
+      if (provided.hasOwnProperty(key)) {
+        options[key] = provided[key];
+      } else {
+        options[key] = defaults[key];
       }
     }
-    return defaults;
+    return options;
   }
 
   apply(compiler) {
